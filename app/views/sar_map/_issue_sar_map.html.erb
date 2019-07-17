@@ -1,0 +1,24 @@
+<% gpx_files = @issue.attachments.select { |x| ["application/gpx+xml", "text/xml", "application/xml", "application/octet-stream"].include?(x.content_type) } %>
+<% map_frame_id = "sar_map" %>
+<% details_frame_id = "sar_track_info" %>
+<% custom_field_id = 5 %>
+<hr/>
+<div id="<%= raw map_frame_id%>" style="width: 100%; height: 600px;"></div>
+<div id="<%= raw details_frame_id%>" style="display: block; margin:3px 0; padding: 5px; border: 1px solid black; background-color: azure;"></div>
+
+<script type="text/javascript">
+var sarMapManager = new SarMapManager(
+  "<%= raw map_frame_id %>", 
+  "<%= raw details_frame_id %>", 
+  function() { return $("#issue_custom_field_values_<%= custom_field_id %>").val(); }, 
+  function(str) { $("#issue_custom_field_values_<%= custom_field_id %>").val(str); }
+);
+
+$(window).load(function() {  
+  sarMapManager.initMap().initCenterMarker().loadPointsFromHistory();
+  <% gpx_files.each do |gpx_file| %>
+    sarMapManager.loadGPXAttach("<%= raw download_named_attachment_url(gpx_file, gpx_file.filename, only_path: true) %>", "<%= raw gpx_file.filename.gsub("\"", "\"\"") %>", "<%= raw gpx_file.description.gsub("\"", "\\\"") %>");
+  <% end %>
+});
+</script>
+
