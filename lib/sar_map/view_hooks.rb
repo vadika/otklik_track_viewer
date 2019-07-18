@@ -6,7 +6,7 @@ module SarMap
       def view_layouts_base_html_head(context = {})
         if context[:controller].is_a?(IssuesController) && context[:controller].action_name == 'show'
           <<-HEAD
-            #{ javascript_include_tag "http://maps.google.com/maps/api/js?key=#{Setting.plugin_sar_map[:google_api_key]}", :cache => true }
+            #{ javascript_include_tag "https://maps.google.com/maps/api/js?key=#{Setting.plugin_sar_map[:google_api_key]}", :cache => true }
             #{ javascript_include_tag 'coordConverter', plugin: 'sar_map' }
             #{ javascript_include_tag 'sarMapManager', plugin: 'sar_map' }
             #{ javascript_include_tag 'gpxWorks', plugin: 'sar_map' }
