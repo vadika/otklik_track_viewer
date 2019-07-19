@@ -10,7 +10,7 @@
 var sarMapManager = new SarMapManager(
   "<%= raw map_frame_id %>", 
   "<%= raw details_frame_id %>", 
-  function() { return $("#issue_custom_field_values_<%= custom_field_id %>").val(); }, 
+  function() { return $(".issue .attributes .cf_<%= custom_field_id %> .value").text(); }, 
   function(str) { $("#issue_custom_field_values_<%= custom_field_id %>").val(str); }
 );
 
@@ -19,6 +19,16 @@ $(window).load(function() {
   <% gpx_files.each do |gpx_file| %>
     sarMapManager.loadGPXAttach("<%= raw download_named_attachment_url(gpx_file, gpx_file.filename, only_path: true) %>", "<%= raw gpx_file.filename.gsub("\"", "\"\"") %>", "<%= raw gpx_file.description.gsub("\"", "\\\"") %>");
   <% end %>
+});
+
+$.ajax({
+  url: '/users.xml',
+  success: function(data) {
+    console.log(data);
+  },
+  fail: function(status) {
+    console.log(status);
+  }
 });
 </script>
 
