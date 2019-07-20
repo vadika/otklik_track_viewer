@@ -20,15 +20,5 @@ $(window).load(function() {
     sarMapManager.loadGPXAttach("<%= raw download_named_attachment_url(gpx_file, gpx_file.filename, only_path: true) %>", "<%= raw gpx_file.filename.gsub("\"", "\"\"") %>", "<%= raw gpx_file.description.gsub("\"", "\\\"") %>");
   <% end %>
 });
-
-$.ajax({
-  url: '/users.xml',
-  success: function(data) {
-    console.log(data);
-  },
-  fail: function(status) {
-    console.log(status);
-  }
-});
 </script>
 

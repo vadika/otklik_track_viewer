@@ -2,7 +2,7 @@ Redmine::Plugin.register :sar_map do
   name 'Sar Map plugin'
   author 'Dmitrii Monakhov'
   description 'Displays GPX track attachments in issue viewer'
-  version '1.0.1'
+  version '1.0.2'
   url 'https://db.otklik.team'
   author_url 'https://otklik.team'
 
